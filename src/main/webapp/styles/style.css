@@ -87,14 +87,68 @@ body {
     color: #ff0000; 
 }
 
+.carousel {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    max-width: 600px;
+    margin: 20px auto;
+    background-color: #f0f0f0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.carousel img {
+    width: 100%;
+    height: 400px;
+    object-fit: cover;
+    display: block;
+    transition: opacity 0.3s ease;
+}
+
+.carousel button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: red;
+    color: white;
+    border: none;
+    font-size: 24px;
+    padding: 12px 16px;
+    cursor: pointer;
+    border-radius: 50%;
+    transition: background-color 0.2s ease, scale 0.2s ease;
+    z-index: 10;
+}
+
+.carousel button:first-of-type {
+    left: 15px;
+}
+
+.carousel button:last-of-type {
+    right: 15px;
+}
+
+.carousel button:hover {
+    background-color: rgba(0, 0, 0, 0.8);
+    transform: translateY(-50%) scale(1.1);
+}
+
+.carousel button:active {
+    transform: translateY(-50%) scale(0.95);
+}
+
 .content-layout {
     display: flex;
-    padding: 30px;
+    flex-direction: column;
     gap: 30px;
+    padding: 20px;
 }
 
 .main-content {
-    flex: 3;
+    flex: 2.5; 
 }
 
 .section-title {
@@ -106,7 +160,8 @@ body {
 }
 
 .brands-section, 
-.promo-section {
+.promo-section,
+.vr-section {
     margin-bottom: 40px;
 }
 
@@ -165,7 +220,7 @@ body {
 
 .card-producto model-viewer {
     width: 100%;
-    height: 450px; 
+    height: 300px; /* Reducido un poco para equilibrar */
     margin: 0 auto;
     display: block;
     outline: none; 
@@ -176,6 +231,62 @@ body {
     color: #ed0000;
     margin-top: 5px;
 }
+
+.vr-container {
+    width: 100%;
+    height: 450px;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+    background: #000;
+}
+
+/* --- ESTILOS DE LA BARRA LATERAL Y NUEVA TARJETA MASCOTA --- */
+
+.sidebar-location {
+    flex: 1; 
+    min-width: 300px;
+}
+
+.mascot-card {
+    background: #111; /* Fondo oscuro elegante */
+    color: #fff;
+    border: 2px solid #ff0000;
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 40px;
+    box-shadow: 0 5px 20px rgba(255, 0, 0, 0.2); /* Sombra roja para resaltar */
+}
+
+.mascot-card h4 {
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+    font-size: 1.2rem;
+    color: #fff;
+}
+
+.mascot-card model-viewer {
+    width: 100%;
+    height: 350px; /* Altura ideal para la barra lateral */
+    outline: none;
+    background-color: transparent;
+}
+
+.mascot-card p {
+    margin-top: 10px;
+    font-size: 0.9rem;
+    color: #ccc;
+}
+
+.sidebar-location .section-title {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+/* ----------------------------------------------------------- */
 
 .main-footer {
     display: flex;
@@ -205,78 +316,8 @@ body {
     transform: scale(1.1);
 }
 
-.carousel{
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    max-width: 600px;
-    margin: 20px auto;
-    background-color: #f0f0f0;
-    border-radius: 12px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+@media (min-width: 992px) {
+    .content-layout {
+        flex-direction: row;
+    }
 }
-
-.carousel img {
-    width: 100%;
-    height: 400px;
-    object-fit: cover;
-    display: block;
-    transition: opacity 0.3s ease;
-}
-
-.carousel button {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    background-color: red;
-    color: white;
-    border: none;
-    font-size: 24px;
-    padding: 12px 16px;
-    cursor: pointer;
-    border-radius: 50%;
-    transition: background-color 0.2s ease, scale 0.2s ease;
-    z-index: 10;
-}
-
-.carousel button:first-of-type {
-    left: 15px;
-}
-
-.carousel button:last-of-type {
-    right: 15px;
-}
-
-.carousel button:hover {
-    background-color: rgba(0, 0, 0, 0.8);
-    transform: translateY(-50%) scale(1.1);
-}
-
-.carousel button:active {
-    transform: translateY(-50%) scale(0.95);
-}
-
-.content-layout {
-    display: flex;
-    flex-direction: column; /* Por defecto uno abajo del otro (Móvil) */
-    gap: 20px;
-    padding: 20px;
-}
-
-.main-content {
-    flex: 2; 
-}
-
-/* Espacio asignado a la sección del mapa */
-.sidebar-location {
-    flex: 1; /* Toma un espacio más reducido en proporción */
-    min-width: 300px;
-}
-
-.sidebar-location .section-title {
-    text-align: center;
-    margin-bottom: 15px;
-}
-
