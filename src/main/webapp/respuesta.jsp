@@ -2,7 +2,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 
 <%
-    // 1. Captura de datos del formulario
+    request.setCharacterEncoding("UTF-8");
+
     String nombre = request.getParameter("txtNombre");
     String cedula = request.getParameter("txtCedula");
     String correo = request.getParameter("txtEmail");
@@ -13,13 +14,13 @@
     String foto = request.getParameter("fileFoto");
     String estadoStr = request.getParameter("cmbEstado");
 
-    // 2. Mapeo de Estado Civil para la Base de Datos
+
     int idEstado = 1; 
     if("casado".equals(estadoStr)) idEstado = 2;
     if("divorciado".equals(estadoStr)) idEstado = 3;
     if("viudo".equals(estadoStr)) idEstado = 4;
 
-    // 3. IDENTIFICACIÓN DE LA PROVINCIA EN EL SERVIDOR (USANDO IF)
+
     String nombreProvincia = "Provincia no válida / Exterior";
     boolean provinciaValida = false;
     
@@ -57,11 +58,10 @@
         }
     }
 
-    // 4. PROCESO DE INSERCIÓN CON FILTROS DE SEGURIDAD
     String mensajeRegistro = "";
     boolean camposCompletos = true;
 
-    // Control estricto en servidor: evita guardar cadenas vacías o nulas
+ 
     if (nombre == null || nombre.trim().isEmpty() ||
         cedula == null || cedula.trim().isEmpty() ||
         correo == null || correo.trim().isEmpty() ||
@@ -75,10 +75,26 @@
         mensajeRegistro = "Error: Registro cancelado. La provincia asignada a la cédula no pertenece a Ecuador.";
     }
 
-    // Inserción final si pasó todas las pruebas de validación
+
     if (camposCompletos) {
-        Usuario user = new Usuario(2, nombre, cedula, idEstado, correo, clave);
-        mensajeRegistro = user.ingresarCliente();
+        Usuario verificador = new Usuario();
+        String estadoDuplicados = verificador.verifyuser(cedula, correo, nombre);
+        
+        if (!"OK".equals(estadoDuplicados)) {
+    
+            camposCompletos = false;
+            mensajeRegistro = "Error: Registro cancelado. " + estadoDuplicados;
+        } else {
+
+            Usuario user = new Usuario(2, nombre, cedula, idEstado, correo, clave);
+            mensajeRegistro = user.ingresarCliente();
+            
+ 
+            if (mensajeRegistro != null && mensajeRegistro.contains("correcta")) {
+                HttpSession sesionActiva = request.getSession(true);
+                sesionActiva.setAttribute("usuarioLogueado", user);
+            }
+        }
     }
 %>
 
@@ -91,9 +107,10 @@
 </head>
 <body class="bg-light">
     <div class="container mt-5">
-        <div class="alert <%= (mensajeRegistro.contains("correcta") && camposCompletos) ? "alert-success" : "alert-danger" %> shadow">
+   
+        <div class="alert <%= (mensajeRegistro != null && mensajeRegistro.contains("correcta") && camposCompletos) ? "alert-success" : "alert-danger" %> shadow">
             <h3><%= mensajeRegistro %></h3>
-            <p>Estado del proceso: <strong><%= (mensajeRegistro.contains("correcta") && camposCompletos ? "Guardado en PostgreSQL" : "Registro denegado") %></strong></p>
+            <p>Estado del proceso: <strong><%= (mensajeRegistro != null && mensajeRegistro.contains("correcta") && camposCompletos ? "Guardado en PostgreSQL" : "Registro denegado") %></strong></p>
         </div>
 
         <div class="card shadow-sm mt-3">
@@ -108,7 +125,8 @@
                     <li class="list-group-item"><strong>Mes/Año Nacimiento:</strong> <%= (fechaNacimiento != null && !fechaNacimiento.isEmpty()) ? fechaNacimiento : "<span class='text-danger'>Faltante</span>" %></li>
                 </ul>
                 <div class="mt-4">
-                    <a href="register.jsp" class="btn btn-outline-primary">Volver al Registro</a>
+             
+                    <a href="inicio.jsp" class="btn btn-outline-primary">Ir a la página de Inicio</a>
                 </div>
             </div>
         </div>

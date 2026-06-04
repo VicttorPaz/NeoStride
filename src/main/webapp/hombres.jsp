@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-
 <%@ page import="com.productos.seguridad.Usuario" %>
 <%
     HttpSession sesionNavbar = request.getSession(false);
@@ -15,9 +14,9 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="styles/products.css">
-      <link rel="stylesheet" href="styles/style.css">
+    <link rel="stylesheet" href="styles/style.css">
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.13.1/font/bootstrap-icons.min.css">
-    <title>NeoStrid</title>
+    <title>NeoStrid - Hombres</title>
 </head>
 <body class="site-wrapper">
     <main class="main-container">
@@ -26,20 +25,20 @@
             <div class="search_bar">
                 <input type="text" class="search" placeholder="Jordan, Nike ....">
                 <% if (usuarioActivo == null) { %>
-					<a href="login.jsp"> <i class="bi bi-person-circle"></i></a>
-				<% } else { %>
-					<span style="color: #fff; font-size: 0.9rem; margin-right: 10px; font-family: inherit;">
+                    <a href="login.jsp"> <i class="bi bi-person-circle"></i></a>
+                <% } else { %>
+                    <span style="color: #fff; font-size: 0.9rem; margin-right: 10px; font-family: inherit;">
 						Hola, <strong><%= usuarioActivo.getNombre() %></strong>
 					</span>
-					<a href="logout.jsp" style="color: #ff0000; text-decoration: none; font-size: 0.85rem;"><i class="bi bi-box-arrow-right"></i></a>
-				<% } %>
+                    <a href="logout.jsp" style="color: #ff0000; text-decoration: none; font-size: 0.85rem;"><i class="bi bi-box-arrow-right"></i></a>
+                <% } %>
             </div>
         </header>
 
         <nav class="nav-bar">
             <ul class="nav-list">
                 <li class="nav-item"><a href="inicio.jsp" class="nav-link">Inicio</a></li>
-           
+            
                 <li class="nav-item"><a href="hombres.jsp" class="nav-link">Hombres</a></li>
                 <li class="nav-item"><a href="mujeres.jsp" class="nav-link">Mujeres</a></li>
                 <li class="nav-item"><a href="niños.jsp" class="nav-link">Niños</a></li>
@@ -89,12 +88,14 @@
                 <p class="product-price">$130.00</p>
                 <button class="btn-cart"><i class="bi bi-cart-plus"></i></button>
             </div>
+
             <div class="product-card">
                 <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?w=400" alt="Zapato" class="product-img">
                 <h3 class="product-title">Adidas Forum Low</h3>
                 <p class="product-price">$130.00</p>
                 <button class="btn-cart"><i class="bi bi-cart-plus"></i></button>
             </div>
+
             <div class="product-card">
                 <img src="https://images.unsplash.com/photo-1552346154-21d32810aba3?w=400" alt="Zapato" class="product-img">
                 <h3 class="product-title">Adidas Forum Low</h3>
